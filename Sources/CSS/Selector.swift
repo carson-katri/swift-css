@@ -45,7 +45,7 @@ public struct Select: CSSSelector {
         }
     }
     
-    public init(_ class cssClass: String, @CSSBuilder _ body: () -> CSS) {
+    public init(class cssClass: String, @CSSBuilder _ body: () -> CSS) {
         selector = ".\(cssClass)"
         let built = body()
         if let container = built as? CSSContainer {
@@ -55,7 +55,7 @@ public struct Select: CSSSelector {
        }
     }
     
-    public init(_ id: String, @CSSBuilder _ body: () -> CSS) {
+    public init(id: String, @CSSBuilder _ body: () -> CSS) {
         selector = "#\(id)"
         let built = body()
         if let container = built as? CSSContainer {
