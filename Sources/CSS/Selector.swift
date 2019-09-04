@@ -67,3 +67,13 @@ public struct Select: CSSSelector {
     
     public init() { }
 }
+
+/// Select by `class` name. The leading `.` is added for you.
+public func Class(_ className: String, @CSSBuilder _ body: () -> CSS) -> Select {
+    Select(class: className, body)
+}
+
+/// Select by `id`. The leading `#` is added for you.
+public func Id(_ id: String, @CSSBuilder _ body: () -> CSS) -> Select {
+    Select(id: id, body)
+}
