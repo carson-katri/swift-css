@@ -18,7 +18,7 @@ extension String {
     fileprivate func processCamalCaseRegex(pattern: String) -> String? {
         let regex = try? NSRegularExpression(pattern: pattern, options: [])
         let range = NSRange(location: 0, length: count)
-        return regex?.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: "$1_$2")
+        return regex?.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: "$1-$2")
     }
 }
 

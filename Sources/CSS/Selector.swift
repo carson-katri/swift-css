@@ -14,7 +14,6 @@ public protocol CSSSelector: CSSBlock {
 
 public extension CSSSelector {    
     func string() -> String {
-        print(children)
         return """
         \(selector) {\(children.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
         }

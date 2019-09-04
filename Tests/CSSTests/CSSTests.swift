@@ -7,18 +7,29 @@ final class CSSTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         //XCTAssertEqual(CSS().text, "Hello, World!")
-        print(Stylesheet {
-            Select(.h1) {
-                color(.black)
-            }
-            heading(4) {
-                color(.red)
-            }
-            p {
-                color(.blue)
-                border(.blue, 5, .dashed)
-            }
-        }.string())
+        XCTAssertEqual(
+            Stylesheet {
+                Select(.h1) {
+                    color(.black)
+                }
+                heading(4) {
+                    color(.red)
+                }
+                p {
+                    color(.blue)
+                    border(.blue, 5, .dashed)
+                }
+                Media(.prefersColorScheme(.dark)) {
+                    body {
+                        background(.black)
+                    }
+                    html {
+                        background(.black)
+                    }
+                }
+            }.string().replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: ""),
+            "h1{color:black;}h4{color:red;}p{color:blue;border:5pxdashedblue;}@media(prefers-color-scheme:dark){body{background-color:black;}html{background-color:black;}}"
+        )
     }
 
     static var allTests = [
