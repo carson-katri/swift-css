@@ -7,7 +7,7 @@
 
 ///
 public func font(_ font: Font) -> Declaration {
-    Declaration(property: .font, value: font.description)
+    Declaration(property: .fontFamily, value: font.description)
 }
 
 /// Specify the size of the font (in `Pixels`)
