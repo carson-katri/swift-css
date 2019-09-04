@@ -6,34 +6,47 @@
 //
 
 public enum MediaQuery {
-    public var description: String {
-        switch self {
-        case let .prefersColorScheme(colorScheme):
-            return "(prefers-color-scheme: \(colorScheme.rawValue))"
-        default:
-            return String(describing: self).dashCase()
-        }
-    }
+    case screen
+    case print
+    
     public enum ColorScheme: String {
         case light
         case dark
     }
     case prefersColorScheme(ColorScheme)
+    
+    case aspectRatio(Fraction)
+    
+    public var description: String {
+        switch self {
+        case let .prefersColorScheme(colorScheme):
+            return "(prefers-color-scheme: \(colorScheme.rawValue))"
+        case let .aspectRatio(fraction):
+            return "(aspect-ratio: \(fraction.description))"
+        default:
+            return String(describing: self).dashCase()
+        }
+    }
 }
 
 public struct Media: CSSBlock {
     public var children: [CSS]
     
-    let query: MediaQuery
+    let queries: [MediaQuery]
     
     public init(_ query: MediaQuery, @StylesheetBuilder _ body: () -> CSSBlock) {
-        self.query = query
+        self.queries = [query]
+        children = body().children
+    }
+    
+    public init(_ queries: [MediaQuery], @StylesheetBuilder _ body: () -> CSSBlock) {
+        self.queries = queries
         children = body().children
     }
     
     public func string() -> String {
         """
-        @media \(query.description) {
+        @media \(queries.map { $0.description }.joined(separator: "and")) {
           \(children.map { $0.string() }.joined(separator: "\n"))
         }
         """
