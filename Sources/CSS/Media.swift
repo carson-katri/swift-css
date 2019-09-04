@@ -13,13 +13,13 @@ public enum MediaQuery {
         case light
         case dark
     }
-    case prefersColorScheme(ColorScheme)
+    case colorScheme(ColorScheme)
     
     case aspectRatio(Fraction)
     
     public var description: String {
         switch self {
-        case let .prefersColorScheme(colorScheme):
+        case let .colorScheme(colorScheme):
             return "(prefers-color-scheme: \(colorScheme.rawValue))"
         case let .aspectRatio(fraction):
             return "(aspect-ratio: \(fraction.description))"
@@ -50,5 +50,41 @@ public struct Media: CSSBlock {
           \(children.map { $0.string() }.joined(separator: "\n"))
         }
         """
+    }
+}
+
+public extension CSSSelector {
+    func when(_ query: MediaQuery) -> Media {
+        Media(query) {
+            self
+        }
+    }
+    func when(_ queries: MediaQuery...) -> Media {
+        Media(queries) {
+            self
+        }
+    }
+    func when(_ queries: [MediaQuery]) -> Media {
+        Media(queries) {
+            self
+        }
+    }
+}
+
+public extension Group {
+    func when(_ query: MediaQuery) -> Media {
+        Media(query) {
+            CSSContainer(children: self.children)
+        }
+    }
+    func when(_ queries: MediaQuery...) -> Media {
+        Media(queries) {
+            CSSContainer(children: self.children)
+        }
+    }
+    func when(_ queries: [MediaQuery]) -> Media {
+        Media(queries) {
+            CSSContainer(children: self.children)
+        }
     }
 }

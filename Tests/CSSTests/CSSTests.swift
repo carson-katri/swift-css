@@ -12,21 +12,22 @@ final class CSSTests: XCTestCase {
                 Select(.h1) {
                     color(.black)
                 }
-                heading(4) {
+                Heading(4) {
                     color(.red)
                 }
-                p {
+                Paragraph {
                     color(.blue)
                     border(.blue, 5, .dashed)
                 }
-                Media(.prefersColorScheme(.dark)) {
-                    body {
+                Group {
+                    Body {
                         background(.black)
                     }
-                    html {
+                    Html {
                         background(.black)
                     }
                 }
+                .when(.colorScheme(.dark))
             }.string().replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: ""),
             "h1{color:black;}h4{color:red;}p{color:blue;border:5pxdashedblue;}@media(prefers-color-scheme:dark){body{background-color:black;}html{background-color:black;}}"
         )

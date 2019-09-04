@@ -18,25 +18,25 @@ public enum Tags: String {
     case p
 }
 
-public struct html: CSSSelector {
+public struct Html: CSSSelector {
     public var selector = "html"
     public var children: [CSS] = []
     public init() { }
 }
 
-public struct body: CSSSelector {
+public struct Body: CSSSelector {
     public var selector = "body"
     public var children: [CSS] = []
     public init() { }
 }
 
-public struct div: CSSSelector {
+public struct Div: CSSSelector {
     public var selector = "div"
     public var children: [CSS] = []
     public init() { }
 }
 
-public struct heading: CSSSelector {
+public struct Heading: CSSSelector {
     public var selector: String
     public var children: [CSS] = []
     
@@ -54,7 +54,7 @@ public struct heading: CSSSelector {
     public init() { selector = "h1" }
 }
 
-public struct p: CSSSelector {
+public struct Paragraph: CSSSelector {
     public var selector = "p"
     public var children: [CSS] = []
     public init() { }
