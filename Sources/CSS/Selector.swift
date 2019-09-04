@@ -45,8 +45,8 @@ public struct Select: CSSSelector {
         }
     }
     
-    public init(_ cssClass: CSSClass, @CSSBuilder _ body: () -> CSS) {
-        selector = ".\(cssClass.rawValue)"
+    public init(_ class cssClass: String, @CSSBuilder _ body: () -> CSS) {
+        selector = ".\(cssClass)"
         let built = body()
         if let container = built as? CSSContainer {
             children = container.children
