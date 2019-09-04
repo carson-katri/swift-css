@@ -13,5 +13,13 @@ public enum BorderStyle: String {
 }
 
 public func border(_ color: Color, _ width: Pixel, _ style: BorderStyle) -> Declaration {
-    Declaration(property: .border, value: "\(width)px \(style) \(color.description)")
+    Declaration(property: .border, value: "\(width)px \(style.rawValue) \(color.description)")
+}
+
+public func border(_ style: BorderStyle) -> Declaration {
+    Declaration(property: .border, value: style.rawValue)
+}
+
+public func borderRadius(_ radius: Pixel) -> Declaration {
+    Declaration(property: .borderRadius, value: "\(radius)px")
 }
