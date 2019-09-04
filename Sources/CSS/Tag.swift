@@ -40,7 +40,7 @@ public struct Heading: CSSSelector {
     public var selector: String
     public var children: [CSS] = []
     
-    init(_ level: Int = 1, @CSSBuilder _ body: () -> CSS) {
+    public init(_ level: Int = 1, @CSSBuilder _ body: () -> CSS) {
         self.init(body)
         selector = "h\(level)"
         let built = body()
