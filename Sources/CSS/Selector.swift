@@ -14,10 +14,22 @@ public protocol CSSSelector: CSSBlock {
 
 public extension CSSSelector {    
     func string() -> String {
-        return """
-        \(selector) {\(children.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
+        var res = ""
+        let nested = children.filter { $0 is CSSSelector } as! [CSSSelector]
+        for nest in nested {
+            var select = Select()
+            select.selector = "\(selector) \(nest.selector)"
+            select.children = nest.children
+            res += select.string()
         }
-        """
+        let root = children.filter { !($0 is CSSSelector) }
+        if root.count > 0 {
+            res += """
+            \(selector) {\(root.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
+            }
+            """
+        }
+        return res
     }
     
     init(@CSSBuilder _ body: () -> CSS) {

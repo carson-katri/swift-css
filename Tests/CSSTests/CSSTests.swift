@@ -6,7 +6,32 @@ final class CSSTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        //XCTAssertEqual(CSS().text, "Hello, World!")
+        let expects =
+        """
+        h1 {
+         color: black;
+        }
+        h4 {
+         color: red;
+        }
+        p {
+         color: blue;
+         border: 5px dashed blue;
+        }
+        body div p {
+         color: red;
+        }body div {
+         background-color: red;
+        }
+        @media (prefers-color-scheme: dark) {
+          body {
+         background-color: black;
+        }
+        html {
+         background-color: black;
+        }
+        }
+        """
         XCTAssertEqual(
             Stylesheet {
                 Select(.h1) {
@@ -19,6 +44,14 @@ final class CSSTests: XCTestCase {
                     color(.blue)
                     border(.blue, 5, .dashed)
                 }
+                Body {
+                    Div {
+                        background(.red)
+                        Paragraph {
+                            color(.red)
+                        }
+                    }
+                }
                 Group {
                     Body {
                         background(.black)
@@ -28,8 +61,8 @@ final class CSSTests: XCTestCase {
                     }
                 }
                 .when(.colorScheme(.dark))
-            }.string().replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: ""),
-            "h1{color:black;}h4{color:red;}p{color:blue;border:5pxdashedblue;}@media(prefers-color-scheme:dark){body{background-color:black;}html{background-color:black;}}"
+            }.string(),
+            expects
         )
     }
 
