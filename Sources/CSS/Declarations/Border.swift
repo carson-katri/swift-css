@@ -12,6 +12,6 @@ public enum BorderStyle: String {
     case dashed
 }
 
-public func border(_ color: Color, _ width: Int, _ style: BorderStyle) -> Declaration {
+public func border(_ color: Color, _ width: Pixel, _ style: BorderStyle) -> Declaration {
     Declaration(property: .border, value: "\(width)px \(style) \(color.description)")
 }

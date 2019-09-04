@@ -5,6 +5,7 @@
 //  Created by Carson Katri on 9/4/19.
 //
 
+/// Specify how background images are repeated
 public enum BackgroundRepeat: String {
     case `repeat`
     case x = "repeat-x"
@@ -16,6 +17,7 @@ public enum BackgroundRepeat: String {
     case inherit
 }
 
+/// Specify whether the background is fixed within the viewport, or scrolls with its containing block
 public enum BackgroundAttachment: String {
     /// The background image will scroll with the page
     case scroll
@@ -40,8 +42,8 @@ public enum BackgroundPosition {
     case centerCenter
     case centerBottom
     
-    case percent(x: Int, y: Int)
-    case coords(x: Int, y: Int)
+    case percent(x: Pixel, y: Pixel)
+    case coords(x: Pixel, y: Pixel)
     
     public var description: String {
         switch self {
@@ -55,14 +57,17 @@ public enum BackgroundPosition {
     }
 }
 
-public func background(_ color: Color, _ image: Url, _ bgRepeat: BackgroundRepeat, _ attachment: BackgroundAttachment = .scroll, _ position: Position) -> Declaration {
-    Declaration(property: .background, value: "\(color.description) \(image.description) \(bgRepeat.rawValue) \(attachment.rawValue) \(position.rawValue)")
+/// Set the background `Color`
+public func background(_ color: Color, _ image: Url, _ bgRepeat: BackgroundRepeat, _ attachment: BackgroundAttachment = .scroll, _ position: BackgroundPosition) -> Declaration {
+    Declaration(property: .background, value: "\(color.description) \(image.description) \(bgRepeat.rawValue) \(attachment.rawValue) \(position.description)")
 }
 
+/// Set the background `Color`
 public func background(_ color: Color) -> Declaration {
     Declaration(property: .backgroundColor, value: color.description)
 }
 
+/// Sets the background `Image` at a specified `Url`
 public func background(_ image: Url, repeat bgRepeat: BackgroundRepeat = .none, attachment: BackgroundAttachment = .scroll, position: BackgroundPosition) -> Declaration {
-    Declaration(property: .background, value: image.description)
+    Declaration(property: .background, value: "\(image.description) \(bgRepeat.rawValue) \(attachment.rawValue) \(position.description)")
 }
