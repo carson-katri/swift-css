@@ -28,6 +28,8 @@ public struct Fraction: CustomStringConvertible {
     }
 }
 
+/*
 public func / (_ lhs: Int, _ rhs: Int) -> Fraction {
     Fraction(lhs, over: rhs)
 }
+*/
