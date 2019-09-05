@@ -30,7 +30,27 @@ public extension CSSSelector {
             select.children = [condition.declaration]
             conditionalRes += Media(condition.queries, { select }).string()
         }
-        let root = children.filter { !($0 is CSSSelector || $0 is ConditionalDeclaration) }
+        let media = children.filter { $0 is Media } as! [Media]
+        for condition in media {
+            var select = Select()
+            select.selector = selector
+            select.children = condition.children
+            conditionalRes += Media(condition.queries, { select }).string()
+        }
+        let groups = children.filter { $0 is Group } as! [Group]
+        for group in groups {
+            let blocks = group.children.filter { $0 is CSSBlock }
+            let decls = group.children.filter { !($0 is CSSBlock) }
+            var select = Select()
+            select.selector = selector
+            select.children = blocks
+            res += select.string()
+            res += """
+            \(selector) {\(decls.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
+            }
+            """
+        }
+        let root = children.filter { !($0 is CSSSelector || $0 is ConditionalDeclaration || $0 is Media || $0 is Group) }
         if root.count > 0 {
             res += """
             \(selector) {\(root.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))

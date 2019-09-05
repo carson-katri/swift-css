@@ -9,7 +9,21 @@ public struct Group: CSSBlock {
     public var children: [CSS]
     
     public init(@StylesheetBuilder _ body: () -> CSSBlock) {
-        children = body().children
+        let built = body()
+        if let container = built as? CSSContainer {
+            children = container.children
+        } else {
+            children = [built]
+        }
+    }
+    
+    public init(@CSSBuilder _ body: () -> CSS) {
+        let built = body()
+        if let container = built as? CSSContainer {
+            children = container.children
+        } else {
+            children = [built]
+        }
     }
     
     public init(_ body: [CSS]) {

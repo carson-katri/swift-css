@@ -2,13 +2,54 @@ import XCTest
 @testable import CSS
 
 final class CSSTests: XCTestCase {
-    func testSimple() {
-        let sheet = Stylesheet {
-            Select(.h1) {
-                color(.black)
-            }
+    func testGroups() {
+        let expects =
+        """
+        div .hello-world p {
+         background-color: red;
         }
-        print(sheet.string())
+        div .hello-world {
+         color: blue;
+        }
+        div .hi {
+         color: green;
+        }
+
+        div {
+         background-color: green;
+        }
+        @media (prefers-color-scheme: dark) {
+          div {
+         color: black;
+         background-color: white;
+        }
+
+        }
+        """
+        XCTAssertEqual(
+            Stylesheet {
+                Select(.div) {
+                    Group {
+                        color(.black)
+                        background(.white)
+                    }
+                    .when(.colorScheme(.dark))
+                    Group {
+                        background(.green)
+                        Class("hello-world") {
+                            color(.blue)
+                            Paragraph {
+                                background(.red)
+                            }
+                        }
+                        Class("hi") {
+                            color(.green)
+                        }
+                    }
+                }
+            }.string(),
+            expects
+        )
     }
     
     func testExample() {
@@ -89,7 +130,7 @@ final class CSSTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testSimple", testSimple),
+        ("testGroups", testGroups),
         ("testExample", testExample),
     ]
 }

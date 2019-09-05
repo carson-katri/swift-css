@@ -9,11 +9,11 @@ public struct Stylesheet: CSSBlock {
     public var children: [CSS] = []
     
     public init(@StylesheetBuilder _ body: () -> CSSBlock) {
-        let extracted = body()
-        if extracted is CSSSelector || extracted is Media {
-            children = [extracted]
+        let built = body()
+        if let container = built as? CSSContainer {
+            children = container.children
         } else {
-            children = body().children
+            children = [built]
         }
     }
     
