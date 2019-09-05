@@ -5,9 +5,14 @@
 //  Created by Carson Katri on 9/4/19.
 //
 
-///
+/// Specify the font of text in the element
 public func font(_ font: Font) -> Declaration {
     Declaration(property: .fontFamily, value: font.description)
+}
+
+/// Specify multiple font parameters
+public func font(_ fonts: Font...) -> Declaration {
+    Declaration(property: .fontFamily, value: fonts.map { $0.description }.joined(separator: ", "))
 }
 
 /// Specify the size of the font (in `Pixels`)
