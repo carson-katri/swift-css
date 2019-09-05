@@ -9,7 +9,12 @@ public struct Stylesheet: CSSBlock {
     public var children: [CSS] = []
     
     public init(@StylesheetBuilder _ body: () -> CSSBlock) {
-        children = body().children
+        let extracted = body()
+        if extracted is CSSSelector || extracted is Media {
+            children = [extracted]
+        } else {
+            children = body().children
+        }
     }
     
     public init(_ body: [CSS]) {
@@ -17,6 +22,7 @@ public struct Stylesheet: CSSBlock {
     }
     
     public func string() -> String {
-        children.map { $0.string() }.joined(separator: "\n")
+        print(children)
+        return children.map { $0.string() }.joined(separator: "\n")
     }
 }

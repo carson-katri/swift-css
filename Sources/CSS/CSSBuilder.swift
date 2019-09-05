@@ -14,6 +14,10 @@ public struct CSSBuilder {
 
 @_functionBuilder
 public struct StylesheetBuilder {
+    public static func buildBlock(_ css: CSSBlock) -> CSSBlock {
+        CSSContainer(children: [css])
+    }
+    
     public static func buildBlock(_ css: CSSBlock...) -> CSSBlock {
         CSSContainer(children: css)
     }

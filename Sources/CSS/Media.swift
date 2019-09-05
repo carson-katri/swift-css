@@ -35,13 +35,17 @@ public struct Media: CSSBlock {
     let queries: [MediaQuery]
     
     public init(_ query: MediaQuery, @StylesheetBuilder _ body: () -> CSSBlock) {
-        self.queries = [query]
-        children = body().children
+        self.init([query], body)
     }
     
     public init(_ queries: [MediaQuery], @StylesheetBuilder _ body: () -> CSSBlock) {
         self.queries = queries
-        children = body().children
+        let extracted = body()
+        if extracted is CSSSelector || extracted is Media {
+            children = [extracted]
+        } else {
+            children = extracted.children
+        }
     }
     
     public func string() -> String {

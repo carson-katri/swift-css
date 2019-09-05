@@ -2,6 +2,15 @@ import XCTest
 @testable import CSS
 
 final class CSSTests: XCTestCase {
+    func testSimple() {
+        let sheet = Stylesheet {
+            Select(.h1) {
+                color(.black)
+            }
+        }
+        print(sheet.string())
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -20,7 +29,10 @@ final class CSSTests: XCTestCase {
          color: blue;
         }
         @media (prefers-color-scheme: dark) {
-          border: 5px dashed blue;
+          p {
+         border: 5px dashed blue;
+        }
+
         }
         body div p {
          color: red;
@@ -77,6 +89,7 @@ final class CSSTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testSimple", testSimple),
         ("testExample", testExample),
     ]
 }
