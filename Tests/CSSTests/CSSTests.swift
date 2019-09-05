@@ -11,25 +11,34 @@ final class CSSTests: XCTestCase {
         h1 {
          color: black;
         }
+
         h4 {
          color: red;
         }
+
         p {
          color: blue;
-         border: 5px dashed blue;
+        }
+        @media (prefers-color-scheme: dark) {
+          border: 5px dashed blue;
         }
         body div p {
          color: red;
-        }body div {
+        }
+        body div {
          background-color: red;
         }
+
+
         @media (prefers-color-scheme: dark) {
           body {
          background-color: black;
         }
+
         html {
          background-color: black;
         }
+
         }
         """
         XCTAssertEqual(
@@ -43,6 +52,7 @@ final class CSSTests: XCTestCase {
                 Paragraph {
                     color(.blue)
                     border(.blue, 5, .dashed)
+                        .when(.colorScheme(.dark))
                 }
                 Body {
                     Div {

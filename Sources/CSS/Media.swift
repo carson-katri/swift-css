@@ -88,3 +88,15 @@ public extension Group {
         }
     }
 }
+
+public extension Declaration {
+    func when(_ query: MediaQuery) -> ConditionalDeclaration {
+        ConditionalDeclaration(self, queries: [query])
+    }
+    func when(_ queries: MediaQuery...) -> ConditionalDeclaration {
+        ConditionalDeclaration(self, queries: queries)
+    }
+    func when(_ queries: [MediaQuery]) -> ConditionalDeclaration {
+        ConditionalDeclaration(self, queries: queries)
+    }
+}

@@ -22,14 +22,22 @@ public extension CSSSelector {
             select.children = nest.children
             res += select.string()
         }
-        let root = children.filter { !($0 is CSSSelector) }
+        let conditional = children.filter { $0 is ConditionalDeclaration } as! [ConditionalDeclaration]
+        var conditionalRes = ""
+        for condition in conditional {
+            var select = Select()
+            select.selector = selector
+            select.children = [condition.declaration]
+            conditionalRes += Media(condition.queries, { select }).string()
+        }
+        let root = children.filter { !($0 is CSSSelector || $0 is ConditionalDeclaration) }
         if root.count > 0 {
             res += """
             \(selector) {\(root.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
             }
             """
         }
-        return res
+        return "\(res)\n\(conditionalRes)"
     }
     
     init(@CSSBuilder _ body: () -> CSS) {
