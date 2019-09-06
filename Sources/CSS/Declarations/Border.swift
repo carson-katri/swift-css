@@ -20,6 +20,6 @@ public func border(_ style: BorderStyle) -> Declaration {
     Declaration(property: .border, value: style.rawValue)
 }
 
-public func borderRadius(_ radius: Pixel) -> Declaration {
-    Declaration(property: .borderRadius, value: "\(radius)px")
+public func borderRadius(_ radius: CSSUnit) -> Declaration {
+    Declaration(property: .borderRadius, value: radius.description)
 }

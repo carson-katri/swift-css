@@ -6,11 +6,11 @@
 //
 
 /// Add padding to all `Sides`
-public func padding(_ amount: Pixel = 10) -> Declaration {
-    Declaration(property: .padding, value: "\(amount)px")
+public func padding(_ amount: CSSUnit = .pixels(10)) -> Declaration {
+    Declaration(property: .padding, value: amount.description)
 }
 /// Add padding to specific `Sides`
-public func padding(_ sides: [Side], _ amount: Pixel = 10) -> Declaration {
+public func padding(_ sides: [Side], _ amount: CSSUnit = .pixels(10)) -> Declaration {
     var decls = [Declaration]()
     for side in sides {
         let prop: CSSProperty!
@@ -24,18 +24,18 @@ public func padding(_ sides: [Side], _ amount: Pixel = 10) -> Declaration {
         case .left:
             prop = .paddingLeft
         }
-        decls.append(Declaration(property: prop, value: "\(amount)px"))
+        decls.append(Declaration(property: prop, value: amount.description))
     }
     return Declaration(code: decls.map { $0.string() }.joined(separator: " "))
 }
 
 /// Add a margin to all `Sides`
-public func margin(_ amount: Pixel = 10) -> Declaration {
-    Declaration(property: .margin, value: "\(amount)px")
+public func margin(_ amount: CSSUnit = .pixels(10)) -> Declaration {
+    Declaration(property: .margin, value: amount.description)
 }
 
 /// Add a margin to specific `Sides`
-public func margin(_ sides: [Side], _ amount: Pixel = 10) -> Declaration {
+public func margin(_ sides: [Side], _ amount: CSSUnit = .pixels(10)) -> Declaration {
     var decls = [Declaration]()
     for side in sides {
         let prop: CSSProperty!
@@ -49,7 +49,7 @@ public func margin(_ sides: [Side], _ amount: Pixel = 10) -> Declaration {
         case .left:
             prop = .marginLeft
         }
-        decls.append(Declaration(property: prop, value: "\(amount)px"))
+        decls.append(Declaration(property: prop, value: amount.description))
     }
     return Declaration(code: decls.map { $0.string() }.joined(separator: " "))
 }

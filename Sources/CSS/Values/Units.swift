@@ -33,3 +33,26 @@ public func / (_ lhs: Int, _ rhs: Int) -> Fraction {
     Fraction(lhs, over: rhs)
 }
 */
+
+public enum CSSUnit {
+    case pixels(Int)
+    case points(Int)
+    case em(Int)
+    case rem(Int)
+    case fraction(Int, Int)
+    
+    public var description: String {
+        switch self {
+        case let .pixels(a):
+            return "\(a)px"
+        case let .points(a):
+            return "\(a)pt"
+        case let .em(a):
+            return "\(a)em"
+        case let .rem(a):
+            return "\(a)rem"
+        case let .fraction(top, bottom):
+            return Fraction(top, over: bottom).description
+        }
+    }
+}

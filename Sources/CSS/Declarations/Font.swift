@@ -15,24 +15,9 @@ public func font(_ fonts: Font...) -> Declaration {
     Declaration(property: .fontFamily, value: fonts.map { $0.description }.joined(separator: ", "))
 }
 
-/// Specify the size of the font (in `Pixels`)
-public func fontSize(_ size: Pixel) -> Declaration {
-    Declaration(property: .fontSize, value: "\(size)px")
-}
-
-/// Specify the size of the font (in `Points`)
-public func fontSize(points size: Point) -> Declaration {
-    Declaration(property: .fontSize, value: "\(size)pt")
-}
-
-/// Specify the size of the font (in `Ems`)
-public func fontSize(ems size: Em) -> Declaration {
-    Declaration(property: .fontSize, value: "\(size)em")
-}
-
-/// Specify the size of the font (in `Rems`)
-public func fontSize(rems size: Rem) -> Declaration {
-    Declaration(property: .fontSize, value: "\(size)rem")
+/// Specify the size of the font
+public func fontSize(_ size: CSSUnit) -> Declaration {
+    Declaration(property: .fontSize, value: size.description)
 }
 
 /// Builtin weights

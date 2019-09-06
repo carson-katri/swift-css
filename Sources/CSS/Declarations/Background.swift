@@ -42,15 +42,15 @@ public enum BackgroundPosition {
     case centerCenter
     case centerBottom
     
-    case percent(x: Pixel, y: Pixel)
-    case coords(x: Pixel, y: Pixel)
+    case percent(x: Int, y: Int)
+    case coords(x: CSSUnit, y: CSSUnit)
     
     public var description: String {
         switch self {
         case let .percent(x, y):
             return "\(x)% \(y)%"
         case let .coords(x, y):
-            return "\(x)px \(y)px"
+            return "\(x.description) \(y.description)"
         default:
             return String(describing: self)
         }
