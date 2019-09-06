@@ -39,6 +39,7 @@ public enum CSSUnit {
     case points(Int)
     case em(Int)
     case rem(Int)
+    case auto
     case fraction(Int, Int)
     
     public var description: String {
@@ -51,6 +52,8 @@ public enum CSSUnit {
             return "\(a)em"
         case let .rem(a):
             return "\(a)rem"
+        case .auto:
+            return "auto"
         case let .fraction(top, bottom):
             return Fraction(top, over: bottom).description
         }
