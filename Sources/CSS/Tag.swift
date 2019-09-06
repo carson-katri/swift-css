@@ -85,3 +85,9 @@ public struct List: CSSSelector {
     
     public init() { selector = Ordered.unordered.rawValue }
 }
+
+public struct ListItem: CSSSelector {
+    public var selector = "li"
+    public var children: [CSS] = []
+    public init() { }
+}
