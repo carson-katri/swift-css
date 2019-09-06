@@ -16,6 +16,9 @@ public enum Tags: String {
     case h5
     case h6
     case p
+    case ul
+    case ol
+    case li
 }
 
 public struct Html: CSSSelector {
@@ -58,4 +61,27 @@ public struct Paragraph: CSSSelector {
     public var selector = "p"
     public var children: [CSS] = []
     public init() { }
+}
+
+public struct List: CSSSelector {
+    public var selector: String
+    public var children: [CSS] = []
+    
+    public enum Ordered: String {
+        case unordered = "ul"
+        case ordered = "ol"
+    }
+    
+    public init(_ ordered: Ordered = .unordered, @CSSBuilder _ body: () -> CSS) {
+        self.init(body)
+        selector = ordered.rawValue
+        let built = body()
+        if let container = built as? CSSContainer {
+            children = container.children
+        } else {
+            children = [built]
+        }
+    }
+    
+    public init() { selector = Ordered.unordered.rawValue }
 }
