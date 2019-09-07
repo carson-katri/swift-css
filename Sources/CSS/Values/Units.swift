@@ -30,6 +30,7 @@ public enum CSSUnit {
     case points(Int)
     case em(Double)
     case rem(Double)
+    case percent(Int)
     case auto
     case fraction(Int, Int)
     
@@ -43,6 +44,8 @@ public enum CSSUnit {
             return "\(a)em"
         case let .rem(a):
             return "\(a)rem"
+        case let .percent(a):
+            return "\(a)%"
         case .auto:
             return "auto"
         case let .fraction(top, bottom):
