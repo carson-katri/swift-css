@@ -71,7 +71,7 @@ final class CSSTests: XCTestCase {
         }
         @media (prefers-color-scheme: dark) {
           p {
-         border: 5px dashed blue;
+         border-top: 5px dashed blue; border-right: 5px dashed blue; border-bottom: 5px dashed blue; border-left: 5px dashed blue;
         }
 
         }
