@@ -104,7 +104,7 @@ final class CSSTests: XCTestCase {
                 }
                 Paragraph {
                     color(.blue)
-                    border(.blue, 5, .dashed)
+                    border(.blue, .pixels(5), .dashed)
                         .when(.colorScheme(.dark))
                 }
                 Body {

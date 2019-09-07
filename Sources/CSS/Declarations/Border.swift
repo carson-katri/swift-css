@@ -12,9 +12,9 @@ public enum BorderStyle: String {
     case dashed
 }
 
-public func border(sides: [Side] = [.top, .right, .bottom, .left], _ color: Color, _ width: Pixel, _ style: BorderStyle) -> Declaration {
+public func border(sides: [Side] = [.top, .right, .bottom, .left], _ color: Color, _ width: CSSUnit, _ style: BorderStyle) -> Declaration {
     Declaration(code: sides.map {
-        "border-\($0.rawValue): \(width)px \(style.rawValue) \(color.description);"
+        "border-\($0.rawValue): \(width.description) \(style.rawValue) \(color.description);"
     }.joined(separator: " "))
 }
 
