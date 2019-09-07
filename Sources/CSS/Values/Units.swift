@@ -37,8 +37,8 @@ public func / (_ lhs: Int, _ rhs: Int) -> Fraction {
 public enum CSSUnit {
     case pixels(Int)
     case points(Int)
-    case em(Int)
-    case rem(Int)
+    case em(Double)
+    case rem(Double)
     case auto
     case fraction(Int, Int)
     
