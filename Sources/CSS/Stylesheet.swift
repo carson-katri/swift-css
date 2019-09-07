@@ -22,7 +22,6 @@ public struct Stylesheet: CSSBlock {
     }
     
     public func string() -> String {
-        print(children)
         return children.map { $0.string() }.joined(separator: "\n")
     }
 }

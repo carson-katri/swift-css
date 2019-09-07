@@ -42,3 +42,28 @@ public func height(_ size: CSSUnit) -> Declaration {
 public func height(min: CSSUnit, max: CSSUnit) -> Declaration {
     Declaration(code: "min-height: \(min.description); max-height: \(max.description);")
 }
+
+
+public enum Overflow: String {
+    case visible
+    case hidden
+    case scroll
+    case auto
+}
+
+/// Specify how to handle overflow
+public func overflow(x: Overflow, y: Overflow) -> Declaration {
+    Declaration(code: "overflow-x: \(x.rawValue); overflow-y: \(y.rawValue);")
+}
+
+public func overflow(x: Overflow) -> Declaration {
+    Declaration(property: .overflowX, value: x.rawValue)
+}
+
+public func overflow(y: Overflow) -> Declaration {
+    Declaration(property: .overflowY, value: x.rawValue)
+}
+
+public func overflow(_ xAndY: Overflow) -> Declaration {
+    Declaration(property: .overflow, value: xAndY.rawValue)
+}
