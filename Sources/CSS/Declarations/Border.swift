@@ -7,9 +7,13 @@
 
 public enum BorderStyle: String {
     case none
+    case solid
     case dotted
-    case inset
     case dashed
+    case double
+    case groove
+    case inset
+    case outset
 }
 
 public func border(sides: [Side] = [.top, .right, .bottom, .left], _ color: Color, _ width: CSSUnit, _ style: BorderStyle) -> Declaration {
