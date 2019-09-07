@@ -60,3 +60,15 @@ public enum FontStyle {
 public func fontStyle(_ style: FontStyle) -> Declaration {
     Declaration(property: .fontStyle, value: style.description)
 }
+
+/// Alignment of the text
+public enum TextAlignment: String {
+    case left
+    case center
+    case right
+    case justify
+}
+
+public func textAlign(_ alignment: TextAlignment) -> Declaration {
+    Declaration(property: .textAlign, value: alignment.rawValue)
+}
