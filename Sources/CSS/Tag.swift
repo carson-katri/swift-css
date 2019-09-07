@@ -5,7 +5,7 @@
 //  Created by Carson Katri on 9/4/19.
 //
 
-public enum Tags: String {
+public enum Tags {
     case html
     case body
     case div
@@ -19,6 +19,16 @@ public enum Tags: String {
     case ul
     case ol
     case li
+    case custom(String)
+    
+    var description: String {
+        switch self {
+        case let .custom(tag):
+            return tag
+        default:
+            return String(describing: self)
+        }
+    }
 }
 
 public struct Html: CSSSelector {

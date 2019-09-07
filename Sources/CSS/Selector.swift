@@ -76,7 +76,7 @@ public struct Select: CSSSelector {
     public var children: [CSS] = []
     
     public init(_ tag: Tags, @CSSBuilder _ body: () -> CSS) {
-        selector = tag.rawValue
+        selector = tag.description
         let built = body()
         if let container = built as? CSSContainer {
             children = container.children
