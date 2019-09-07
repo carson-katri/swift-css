@@ -61,7 +61,7 @@ public func overflow(x: Overflow) -> Declaration {
 }
 
 public func overflow(y: Overflow) -> Declaration {
-    Declaration(property: .overflowY, value: x.rawValue)
+    Declaration(property: .overflowY, value: y.rawValue)
 }
 
 public func overflow(_ xAndY: Overflow) -> Declaration {
