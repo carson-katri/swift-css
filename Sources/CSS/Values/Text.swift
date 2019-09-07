@@ -8,6 +8,7 @@
 public enum Font {
     case sansSerif
     case serif
+    case monospace
     case family(String)
     
     public var description: String {
