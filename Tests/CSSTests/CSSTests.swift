@@ -136,6 +136,17 @@ final class CSSTests: XCTestCase {
                 Parent {
                     Class("blue") {
                         background(.blue)
+                        Child {
+                            Paragraph { color(.green) }
+                        }
+                    }
+                }
+                Child {
+                    Class ("blue") {
+                        background(.blue)
+                        Parent {
+                            Id("myElement") { color(.white) }
+                        }
                     }
                 }
             }

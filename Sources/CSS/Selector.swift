@@ -56,12 +56,22 @@ public extension CSSSelector {
             for block in selectors {
                 var select = Select()
                 // Merge the selectors
-                select.selector = selector + block.selector
+                select.selector = "\(selector)\(block.selector)"
                 select.children = block.children
                 res += select.string()
             }
         }
-        let root = children.filter { !($0 is CSSSelector || $0 is ConditionalDeclaration || $0 is Media || $0 is Group || $0 is Parent) }
+        let childCombinators = children.filter { $0 is Child } as! [Child]
+        for child in childCombinators {
+            let selectors = child.children.filter { $0 is CSSSelector } as! [CSSSelector]
+            for block in selectors {
+                var select = Select()
+                select.selector = "\(selector) > \(block.selector)"
+                select.children = block.children
+                res += select.string()
+            }
+        }
+        let root = children.filter { !($0 is CSSSelector || $0 is ConditionalDeclaration || $0 is Media || $0 is Group || $0 is Parent || $0 is Child) }
         if root.count > 0 {
             res += """
             \(selector) {\(root.map { $0.string() }.reduce(into: "", { $0 += "\n \($1)" }))
@@ -131,6 +141,24 @@ public func Id(_ id: String, @CSSBuilder _ body: () -> CSS) -> Select {
 
 /// Get the parent, and apply following to them
 public struct Parent: CSSBlock {
+    public var children: [CSS]
+    
+    public init(@StylesheetBuilder _ body: () -> CSSBlock) {
+        let built = body()
+        if let container = built as? CSSContainer {
+            children = container.children
+        } else {
+            children = [built]
+        }
+    }
+    
+    public func string() -> String {
+        children.map { $0.string() }.joined(separator: "\n")
+    }
+}
+
+/// The child combinator (a direct descendent of the parent)
+public struct Child: CSSBlock {
     public var children: [CSS]
     
     public init(@StylesheetBuilder _ body: () -> CSSBlock) {
