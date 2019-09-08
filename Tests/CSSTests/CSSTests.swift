@@ -128,6 +128,20 @@ final class CSSTests: XCTestCase {
             expects
         )
     }
+    
+    func testParent() {
+        let styles = Stylesheet {
+            Class("hello-world") {
+                background(.red)
+                Parent {
+                    Class("blue") {
+                        background(.blue)
+                    }
+                }
+            }
+        }
+        print(styles.string())
+    }
 
     static var allTests = [
         ("testGroups", testGroups),
