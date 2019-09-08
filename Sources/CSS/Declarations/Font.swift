@@ -72,3 +72,15 @@ public enum TextAlignment: String {
 public func textAlign(_ alignment: TextAlignment) -> Declaration {
     Declaration(property: .textAlign, value: alignment.rawValue)
 }
+
+
+public enum TextDecoration: String {
+    case underline
+    case overline
+    case lineThrough
+    case none
+}
+/// Styling links (`<a>`)
+public func textDecoration(_ decoration: TextDecoration) -> Declaration {
+    Declaration(property: .textDecoration, value: decoration.rawValue.dashCase())
+}
