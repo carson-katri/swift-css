@@ -112,7 +112,7 @@ public enum Color {
     case green
     case blue
     
-    static func linearGradient(_ direction: LinearGradient.Direction, _ stops: Color...) -> Color {
+    public static func linearGradient(_ direction: LinearGradient.Direction, _ stops: Color...) -> Color {
         .linearGradient(direction, stops)
     }
     
