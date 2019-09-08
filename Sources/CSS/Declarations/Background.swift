@@ -64,7 +64,7 @@ public func background(_ color: Color, _ image: Url, _ bgRepeat: BackgroundRepea
 
 /// Set the background `Color`
 public func background(_ color: Color) -> Declaration {
-    Declaration(property: .backgroundColor, value: color.description)
+    Declaration(property: .background, value: color.description)
 }
 
 /// Sets the background `Image` at a specified `Url`
