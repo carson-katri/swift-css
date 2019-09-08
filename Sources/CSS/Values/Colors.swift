@@ -59,6 +59,41 @@ public struct HSL: CustomStringConvertible {
     }
 }
 
+public struct LinearGradient: CustomStringConvertible {
+    public enum Direction {
+        case toTop
+        case toRight
+        case toBottom
+        case toLeft
+        case degrees(Int)
+        case radians(Double)
+    }
+    let direction: Direction
+    let stops: [String]
+    
+    public init(_ direction: Direction, _ stops: Color...) {
+        self.init(direction, stops)
+    }
+    
+    public init(_ direction: Direction, _ stops: [Color]) {
+        self.direction = direction
+        self.stops = stops.map { $0.description }
+    }
+    
+    public var description: String {
+        var dir = ""
+        switch direction {
+        case .degrees(let deg):
+            dir = "\(deg)deg"
+        case .radians(let rad):
+            dir = "\(rad)rad"
+        default:
+            dir = String(describing: direction).dashCase().replacingOccurrences(of: "-", with: " ")
+        }
+        return "linear-gradient(\(dir), \(stops.joined(separator: ", ")))"
+    }
+}
+
 public enum Color {
     case rgb(_ red: Int, _ green: Int, _ blue: Int, alpha: Double = 1.0)
     
@@ -68,12 +103,18 @@ public enum Color {
     
     case hsl(_ hue: Int, _ saturationPercent: Int, _ lightnessPercent: Int)
     
+    case linearGradient(_ direction: LinearGradient.Direction, _ stops: [Color])
+    
     // Builtins
     case white
     case black
     case red
     case green
     case blue
+    
+    static func linearGradient(_ direction: LinearGradient.Direction, _ stops: Color...) -> Color {
+        .linearGradient(direction, stops)
+    }
     
     public var description: String {
         switch self {
@@ -85,6 +126,8 @@ public enum Color {
             return Hex(value).description
         case let .hsl(hue, saturation, lightness):
             return HSL(hue, saturation, lightness).description
+        case let .linearGradient(dir, stops):
+            return LinearGradient(dir, stops).description
         default:
             return String(describing: self)
         }
