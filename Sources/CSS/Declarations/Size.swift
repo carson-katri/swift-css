@@ -67,3 +67,13 @@ public func overflow(y: Overflow) -> Declaration {
 public func overflow(_ xAndY: Overflow) -> Declaration {
     Declaration(property: .overflow, value: xAndY.rawValue)
 }
+
+public enum VerticalAlign: String {
+    case top
+    case bottom
+    case middle
+}
+
+public func verticalAlign(_ align: VerticalAlign) -> Declaration {
+    Declaration(property: .verticalAlign, value: align.rawValue.dashCase())
+}
