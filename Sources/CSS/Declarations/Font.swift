@@ -84,3 +84,8 @@ public enum TextDecoration: String {
 public func textDecoration(_ decoration: TextDecoration) -> Declaration {
     Declaration(property: .textDecoration, value: decoration.rawValue.dashCase())
 }
+
+/// Sets the line height
+public func lineHeight(_ height: CSSUnit) -> Declaration {
+    Declaration(property: .lineHeight, value: height.description)
+}
