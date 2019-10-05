@@ -7,7 +7,7 @@
 
 enum Filter {
     case blur(CSSUnit)
-    case invert(CSSUnit)
+    case invert(CSSUnit = .percent(100))
     
     var description: String {
         switch self {
