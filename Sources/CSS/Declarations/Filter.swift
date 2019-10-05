@@ -5,7 +5,7 @@
 //  Created by Carson Katri on 10/5/19.
 //
 
-enum Filter {
+public enum Filter {
     case blur(CSSUnit)
     case invert(CSSUnit = .percent(100))
     
@@ -19,6 +19,6 @@ enum Filter {
     }
 }
 
-func filter(_ filter: Filter) -> Declaration {
+public func filter(_ filter: Filter) -> Declaration {
     Declaration(property: .filter, value: filter.description)
 }
