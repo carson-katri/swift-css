@@ -22,11 +22,7 @@ extension String {
     }
 }
 
-public enum CSSProperty: String {
-    public var description: String {
-        self.rawValue.dashCase()
-    }
-    
+public enum CSSProperty: String, DashCaseConvertible {    
     case alignContent
     case alignItems
     case alignSelf

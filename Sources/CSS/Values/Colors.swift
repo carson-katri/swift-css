@@ -100,15 +100,11 @@ public struct RadialGradient: CustomStringConvertible {
         case circle
     }
     
-    public enum Size: String, CustomStringConvertible {
+    public enum Size: String, DashCaseConvertible {
         case farthestCorner
         case closestSide
         case closestCorner
         case farthestSide
-        
-        public var description: String {
-            rawValue.dashCase()
-        }
     }
     
     let shape: Shape
