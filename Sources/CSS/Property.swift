@@ -119,6 +119,7 @@ public enum CSSProperty: String {
     case display
     case elevation
     case emptyCells
+    case fill
     case filter
     case flex
     case flexBasis
@@ -242,6 +243,11 @@ public enum CSSProperty: String {
     case speak
     case speechRate
     case stress
+    case stroke
+    case strokeDasharray
+    case strokeDashoffset
+    case strokeLinecap
+    case strokeWidth
     case tabSize
     case tableLayout
     case textAlign

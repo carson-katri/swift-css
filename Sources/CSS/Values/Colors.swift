@@ -94,6 +94,44 @@ public struct LinearGradient: CustomStringConvertible {
     }
 }
 
+public struct RadialGradient: CustomStringConvertible {
+    public enum Shape: String {
+        case ellipse
+        case circle
+    }
+    
+    public enum Size: String, CustomStringConvertible {
+        case farthestCorner
+        case closestSide
+        case closestCorner
+        case farthestSide
+        
+        public var description: String {
+            rawValue.dashCase()
+        }
+    }
+    
+    let shape: Shape
+    let size: Size
+    let position: BackgroundPosition
+    let stops: [String]
+    
+    public init(_ shape: Shape = .ellipse, _ size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) {
+        self.init(shape, size, at: position, stops)
+    }
+    
+    public init(_ shape: Shape = .ellipse, _ size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: [Color]) {
+        self.shape = shape
+        self.size = size
+        self.position = position
+        self.stops = stops.map { $0.description }
+    }
+    
+    public var description: String {
+        "radial-gradient(\(shape.rawValue) \(size.rawValue) at \(position.description), \(stops.joined(separator: ", ")))"
+    }
+}
+
 public enum Color {
     case rgb(_ red: Int, _ green: Int, _ blue: Int, alpha: Double = 1.0)
     
@@ -105,15 +143,164 @@ public enum Color {
     
     case linearGradient(_ direction: LinearGradient.Direction, _ stops: [Color])
     
+    case radialGradient(_ shape: RadialGradient.Shape, _ size: RadialGradient.Size, at: BackgroundPosition, _ stops: [Color])
+    
     // Builtins
-    case white
+    case aliceblue
+    case antiquewhite
+    case aqua
+    case aquamarine
+    case azure
+    case beige
+    case bisque
     case black
-    case red
-    case green
+    case blanchedalmond
     case blue
+    case blueviolet
+    case brown
+    case burlywood
+    case cadetblue
+    case chartreuse
+    case chocolate
+    case coral
+    case cornflowerblue
+    case cornsilk
+    case crimson
+    case cyan
+    case darkblue
+    case darkcyan
+    case darkgoldenrod
+    case darkgray
+    case darkgreen
+    case darkgrey
+    case darkkhaki
+    case darkmagenta
+    case darkolivegreen
+    case darkorange
+    case darkorchid
+    case darkred
+    case darksalmon
+    case darkseagreen
+    case darkslateblue
+    case darkslategray
+    case darkslategrey
+    case darkturquoise
+    case darkviolet
+    case deeppink
+    case deepskyblue
+    case dimgray
+    case dimgrey
+    case dodgerblue
+    case firebrick
+    case floralwhite
+    case forestgreen
+    case fuchsia
+    case gainsboro
+    case ghostwhite
+    case gold
+    case goldenrod
+    case gray
+    case green
+    case greenyellow
+    case grey
+    case honeydew
+    case hotpink
+    case indianred
+    case indigo
+    case ivory
+    case khaki
+    case lavender
+    case lavenderblush
+    case lawngreen
+    case lemonchiffon
+    case lightblue
+    case lightcoral
+    case lightcyan
+    case lightgoldenrodyellow
+    case lightgray
+    case lightgreen
+    case lightgrey
+    case lightpink
+    case lightsalmon
+    case lightseagreen
+    case lightskyblue
+    case lightslategray
+    case lightslategrey
+    case lightsteelblue
+    case lightyellow
+    case lime
+    case limegreen
+    case linen
+    case magenta
+    case maroon
+    case mediumaquamarine
+    case mediumblue
+    case mediumorchid
+    case mediumpurple
+    case mediumseagreen
+    case mediumslateblue
+    case mediumspringgreen
+    case mediumturquoise
+    case mediumvioletred
+    case midnightblue
+    case mintcream
+    case mistyrose
+    case moccasin
+    case navajowhite
+    case navy
+    case oldlace
+    case olive
+    case olivedrab
+    case orange
+    case orangered
+    case orchid
+    case palegoldenrod
+    case palegreen
+    case paleturquoise
+    case palevioletred
+    case papayawhip
+    case peachpuff
+    case peru
+    case pink
+    case plum
+    case powderblue
+    case purple
+    case rebeccapurple
+    case red
+    case rosybrown
+    case royalblue
+    case saddlebrown
+    case salmon
+    case sandybrown
+    case seagreen
+    case seashell
+    case sienna
+    case silver
+    case skyblue
+    case slateblue
+    case slategray
+    case slategrey
+    case snow
+    case springgreen
+    case steelblue
+    case tan
+    case teal
+    case thistle
+    case tomato
+    case turquoise
+    case violet
+    case wheat
+    case white
+    case whitesmoke
+    case yellow
+    case yellowgreen
     
     public static func linearGradient(_ direction: LinearGradient.Direction, _ stops: Color...) -> Color {
         .linearGradient(direction, stops)
+    }
+    
+    public static func radialGradient(_ shape: RadialGradient.Shape = .ellipse, _ size: RadialGradient.Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) -> Color {
+        .radialGradient(shape, size, at: position, stops)
     }
     
     public var description: String {
@@ -128,6 +315,8 @@ public enum Color {
             return HSL(hue, saturation, lightness).description
         case let .linearGradient(dir, stops):
             return LinearGradient(dir, stops).description
+        case let .radialGradient(shape, size, at: pos, stops):
+            return RadialGradient(shape, size, at: pos, stops).description
         default:
             return String(describing: self)
         }
