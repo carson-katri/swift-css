@@ -116,11 +116,11 @@ public struct RadialGradient: CustomStringConvertible {
     let position: BackgroundPosition
     let stops: [String]
     
-    public init(_ shape: Shape = .ellipse, _ size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) {
-        self.init(shape, size, at: position, stops)
+    public init(shape: Shape = .ellipse, size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) {
+        self.init(shape: shape, size: size, at: position, stops)
     }
     
-    public init(_ shape: Shape = .ellipse, _ size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: [Color]) {
+    public init(shape: Shape = .ellipse, size: Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: [Color]) {
         self.shape = shape
         self.size = size
         self.position = position
@@ -143,7 +143,7 @@ public enum Color {
     
     case linearGradient(_ direction: LinearGradient.Direction, _ stops: [Color])
     
-    case radialGradient(_ shape: RadialGradient.Shape, _ size: RadialGradient.Size, at: BackgroundPosition, _ stops: [Color])
+    case radialGradient(shape: RadialGradient.Shape, size: RadialGradient.Size, at: BackgroundPosition, _ stops: [Color])
     
     // Builtins
     case aliceblue
@@ -299,8 +299,8 @@ public enum Color {
         .linearGradient(direction, stops)
     }
     
-    public static func radialGradient(_ shape: RadialGradient.Shape = .ellipse, _ size: RadialGradient.Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) -> Color {
-        .radialGradient(shape, size, at: position, stops)
+    public static func radialGradient(shape: RadialGradient.Shape = .ellipse, size: RadialGradient.Size = .farthestCorner, at position: BackgroundPosition = .centerCenter, _ stops: Color...) -> Color {
+        .radialGradient(shape: shape, size: size, at: position, stops)
     }
     
     public var description: String {
@@ -315,8 +315,8 @@ public enum Color {
             return HSL(hue, saturation, lightness).description
         case let .linearGradient(dir, stops):
             return LinearGradient(dir, stops).description
-        case let .radialGradient(shape, size, at: pos, stops):
-            return RadialGradient(shape, size, at: pos, stops).description
+        case let .radialGradient(shape: shape, size: size, at: pos, stops):
+            return RadialGradient(shape: shape, size: size, at: pos, stops).description
         default:
             return String(describing: self)
         }
