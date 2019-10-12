@@ -153,6 +153,18 @@ final class CSSTests: XCTestCase {
         }
         print(styles.string())
     }
+    
+    func testPseudo() {
+        print(Stylesheet {
+            Class("hello") {
+                textAlign(.center)
+            }
+            Id("search") {
+                outline(.none)
+            }
+            .pseudo(.hover)
+        }.string())
+    }
 
     static var allTests = [
         ("testGroups", testGroups),

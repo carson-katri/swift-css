@@ -29,3 +29,7 @@ public func border(_ style: BorderStyle) -> Declaration {
 public func borderRadius(_ radius: CSSUnit) -> Declaration {
     Declaration(property: .borderRadius, value: radius.description)
 }
+
+public func outline(_ style: BorderStyle) -> Declaration {
+    Declaration(property: .outline, value: style.rawValue)
+}

@@ -20,3 +20,8 @@ public enum Font {
         }
     }
 }
+
+public enum TextDirection: String {
+    case rtl
+    case ltr
+}

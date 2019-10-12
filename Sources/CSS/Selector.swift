@@ -97,33 +97,29 @@ public struct Select: CSSSelector {
     public var children: [CSS] = []
     
     public init(_ tag: Tags, @CSSBuilder _ body: () -> CSS) {
-        selector = tag.description
-        let built = body()
-        if let container = built as? CSSContainer {
-            children = container.children
-        } else {
-            children = [built]
-        }
+        self.init(tag.description, body)
     }
     
     public init(class cssClass: String, @CSSBuilder _ body: () -> CSS) {
-        selector = ".\(cssClass)"
-        let built = body()
-        if let container = built as? CSSContainer {
-            children = container.children
-        } else {
-           children = [built]
-       }
+        self.init(".\(cssClass)", body)
     }
     
     public init(id: String, @CSSBuilder _ body: () -> CSS) {
-        selector = "#\(id)"
+        self.init("#\(id)", body)
+    }
+    
+    public init(_ custom: String, @CSSBuilder _ body: () -> CSS) {
         let built = body()
         if let container = built as? CSSContainer {
-            children = container.children
+            self.init(custom, container.children)
         } else {
-           children = [built]
-       }
+            self.init(custom, [built])
+        }
+    }
+    
+    public init(_ custom: String, _ children: [CSS]) {
+        selector = custom
+        self.children = children
     }
     
     public init() { }
