@@ -33,6 +33,7 @@ public enum CSSUnit {
     case percent(Int)
     case auto
     case fraction(Int, Int)
+    case calc(String)
     
     public var description: String {
         switch self {
@@ -48,6 +49,8 @@ public enum CSSUnit {
             return "\(a)%"
         case .auto:
             return "auto"
+        case let .calc(a):
+            return "calc(\(a))"
         case let .fraction(top, bottom):
             return Fraction(top, over: bottom).description
         }
