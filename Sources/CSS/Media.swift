@@ -57,7 +57,7 @@ public struct Media: CSSBlock {
     
     public func string() -> String {
         """
-        @media \(queries.map { $0.description }.joined(separator: "and")) {
+        @media \(queries.map { $0.description }.joined(separator: " and ")) {
           \(children.map { $0.string() }.joined(separator: "\n"))
         }
         """
