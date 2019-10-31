@@ -27,4 +27,12 @@ public struct Declaration: CSS {
         }
         return "\(property.description.replacingOccurrences(of: "_", with: "-")): \(value);"
     }
+    
+    public func important() -> Self {
+        if let code = code {
+            return Declaration(code: code.dropLast(1) + " !important;")
+        } else {
+            return Declaration(property: property, value: value + " !important")
+        }
+    }
 }
