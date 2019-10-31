@@ -17,12 +17,19 @@ public enum MediaQuery {
     
     case aspectRatio(Fraction)
     
+    case maxWidth(CSSUnit)
+    case minWidth(CSSUnit)
+    
     public var description: String {
         switch self {
         case let .colorScheme(colorScheme):
             return "(prefers-color-scheme: \(colorScheme.rawValue))"
         case let .aspectRatio(fraction):
             return "(aspect-ratio: \(fraction.description))"
+        case let .maxWidth(width):
+            return "(max-width: \(width.description))"
+        case let .minWidth(width):
+            return "(min-width: \(width.description))"
         default:
             return String(describing: self).dashCase()
         }
