@@ -10,7 +10,7 @@ public struct Declaration: CSS {
     let value: String
     var code: String? = nil
     
-    init(property: CSSProperty, value: String) {
+    public init(property: CSSProperty, value: String) {
         self.property = property
         self.value = value
     }
