@@ -233,6 +233,8 @@ public enum CSSProperty: String, DashCaseConvertible {
     case richness
     case right
     case size
+    case scrollbarWidth
+    case scrollbarColor
     case speakHeader
     case speakNumeral
     case speakPunctuation
