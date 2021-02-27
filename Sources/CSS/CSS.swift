@@ -5,8 +5,6 @@
 //  Created by Carson Katri on 9/4/19.
 //
 
-import SwiftUI
-
 public protocol CSS {
     func string() -> String
 }
